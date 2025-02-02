@@ -1,11 +1,17 @@
-﻿@page "/"
+@page "/"
 @using Lab02Logic
 
 <PageTitle>Home</PageTitle>
 
 <h1>Welcome to your Employee Manager!</h1>
 
-<h3> Create a new task</h3>
+<h3> Total Company Pay</h3>
+
+<br>
+<label>Total payment owed $@EmployeeManager.CombinedPay
+</label>
+<br>
+
 <button>
     <button @onclick=createEmployee>Add An Employee</button>
 </button>
@@ -14,15 +20,44 @@
 <label>First Name
     <input @bind=firstName />
 </label>
-    <td>- @Employee.FirstName</td>
+
+<br>
+<label>Last Name
+    <input @bind=lastName />
+</label>
+
+<br>
+<label>Pay Rate
+    <input @bind=hourlyPay />
+</label>
+
+<br>
+<label>Hours Per Week
+    <input @bind=hoursWorked />
+</label>
+
+@foreach (var employee in WebsiteEmployeeManager.EmployeeList)
+{
+    <tr>
+
+        <td>- @employee.FirstName</td>
+        <td>- @employee.LastName</td>
+        <td>- is owed $@employee.TotalPay</td>
+    </tr>
+}
+    
+
 
 
 @code {
-    string? firstName;
-    string? lastName;
+    string firstName="John";
+    string lastName="Smith";
+    decimal hourlyPay = 8.0M;
+    decimal hoursWorked = 29.5M;
+    EmployeeManager WebsiteEmployeeManager = new EmployeeManager("John","Smith");
     void createEmployee()
     {
-        Employee a = new Employee();
+        WebsiteEmployeeManager.AddEmployee(firstName, lastName, hourlyPay, hoursWorked);
 
 
     }
