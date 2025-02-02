@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Reflection;
 using Microsoft.VisualBasic;
@@ -11,19 +11,43 @@ public class Employee
     {
 
     }
-    public Employee(string firstName, string lastName)
+    public Employee(string firstName, string lastName, decimal hourlyPay,decimal hoursWorked)
     {
         FirstName=firstName;
         LastName=lastName;
+        HourlyPay=hourlyPay;
+        HoursWorked=hoursWorked;
+        TotalPay=HoursWorked*HourlyPay;
     }
+    
 
-    string? FirstName{get; set;}
-    string? LastName{get; set;}
-    decimal HourlyPay{get; set;}
-    decimal HoursWorked{get; set;}
-    decimal TotalPay{get;}
+    public string? FirstName{get; set;}
+    public string? LastName{get; set;}
+    public decimal HourlyPay{get; set;}
+    public decimal HoursWorked{get; set;}
+    public decimal TotalPay{get;}
 
 
 
 
+}
+
+public class EmployeeManager
+{
+    public EmployeeManager()
+    {
+
+    }
+    public EmployeeManager(string firstName, string lastName)
+    {
+
+    }
+    public static decimal CombinedPay=0;
+    public List<Employee> EmployeeList = [];
+    public void AddEmployee(string firstName,string lastName, decimal hourlyPay, decimal hoursWorked)
+    {
+        Employee newEmployee = new Employee(firstName,lastName, hourlyPay, hoursWorked);
+        EmployeeList.Add(newEmployee);
+        CombinedPay+=newEmployee.TotalPay;
+    }
 }
